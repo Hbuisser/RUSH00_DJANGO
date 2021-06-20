@@ -49,6 +49,8 @@ class Big_one():
         res = self.dump()
         message_bal = ""
         message_mov = ""
+        tmp = self.get_random_movie()
+        m_id = res.all_movies[tmp]["imdbID"]
         button = request.GET.get('button', None)
         if button == "right":
             if res.out_right == False:
@@ -74,11 +76,11 @@ class Big_one():
                 res.out_up = False
             if res.pos_l == line_file - 1:
                 res.out_down = True
-        elif button == "A":
-            if res.movie_flush == True:
-                tmp = self.get_random_movie()
-                m_id = res.all_movies[tmp]["imdbID"]
-                return views.battle(request, m_id)
+        # elif button == "A":
+        #     if res.movie_flush == True:
+        #         tmp = self.get_random_movie()
+        #         m_id = res.all_movies[tmp]["imdbID"]
+                # return views.battle(request, m_id)
         for i in res.bals_pos:
             if i[0] == res.pos_c and i[1] == res.pos_l:
                 res.bals_nbr = res.bals_nbr + 1
@@ -100,7 +102,9 @@ class Big_one():
             'bals_nbr': res.bals_nbr,
             'message_bal': message_bal,
             'message_mov': message_mov,
-            'len_mes': len_mes
+            'len_mes': len_mes,
+            'movie_flush': res.movie_flush,
+            'id': m_id
         }
         return render(request, 'base.html', context)
 

@@ -20,7 +20,7 @@
                 <tr>
                 {% for c in col %}
                     {% if l == pos_l and c == pos_c %}
-                        <td class="current_place"></td>
+                        <td class="current_place"><img src="{% static 'player.png' %}" alt="Title" class="player"></td>
                     {% else %}
                         <td class="empty"></td>
                     {% endif %}
@@ -44,10 +44,22 @@
         </div>
         <div class="game_container">
             <button class="button">
-                <a href="{{ request.path }}?button=A">A</a>
+                {% if movie_flush  %}
+                <a href="battle/{{ id }}">A</a>
+                {%  else %}
+                <a href="">A</a>
+                {% endif %}
             </button>
             <button class="button">
                 <a href="{{ request.path }}?button=A">B</a>
+            </button>
+        </div>
+        <div class="game_container">
+            <button class="button">
+                <a href="{{ request.path }}?button=start">Start</a>
+            </button>
+            <button class="button">
+                <a href="{{ request.path }}?button=select">Select</a>
             </button>
         </div>
         <div class="game_container">
@@ -59,18 +71,10 @@
             </div>
             <div>
                 <p>{{ message_mov }} </p>
-                {% if len_mess > 3 %}
+                {% if message_mov|length > 1 %}
                     <p>=> click on the A button if you want to catch it!</p>
                 {% endif %}
             </div>
-        </div>
-        <div class="game_container">
-            <button class="button">
-                <a href="{{ request.path }}?button=start">Start</a>
-            </button>
-            <button class="button">
-                <a href="{{ request.path }}?button=select">Select</a>
-            </button>
         </div>
     </body>
 </html>

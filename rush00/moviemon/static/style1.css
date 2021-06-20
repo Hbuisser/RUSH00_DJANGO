@@ -31,12 +31,12 @@ tr {
 .current_place {
   color: red;
   border: solid;
-  padding: 20px;
+  padding: 30px;
 }
 
 .empty {
   border: solid;
-  padding: 20px;
+  padding: 30px;
 }
 
 .game_container {
@@ -47,4 +47,10 @@ tr {
 .button {
   size: 40px;
   padding: 20px;
+}
+
+
+img {
+  width: 30px;
+  height: 30px;  
 }
