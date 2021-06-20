@@ -20,11 +20,12 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from moviemon.views import load_default_settings
+from moviemon.views import begin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('moviemon/', load_default_settings),
-    path('moviemon/', include('moviemon.urls')),
-    path('', RedirectView.as_view(url='moviemon/')),
+    path('moviemon/', begin),
+    # path('moviemon/', include('moviemon.urls')),
+    path('', include("moviemon.urls")),
+    path('battle/', include("moviemon.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

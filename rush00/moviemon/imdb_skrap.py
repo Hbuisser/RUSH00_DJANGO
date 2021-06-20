@@ -14,6 +14,7 @@ class Data():
         self.p_names = p_names
         self.info = info
 
+
 class Big_one():
     def __init__(self, d=None, my_list=None):
         self.my_list = settings.MOVIE_LIST
@@ -68,7 +69,7 @@ class Big_one():
             'pos_l': res.pos_l,
             'pos_c': res.pos_c
         }
-        return render(request, 'moviemon/base.html', context)
+        return render(request, 'base.html', context)
 
     def create_file(self, pos_l, pos_c, out_of_range):
          data = Data(5, ["lol", "kek"], None, pos_l, pos_c, out_of_range)
@@ -99,7 +100,7 @@ class Big_one():
         }
         out_of_range = False
         self.create_file(pos_l, pos_c, out_of_range)
-        return render(request, 'moviemon/base.html', context)
+        return render(request, 'base.html', context)
 
     class Movemone():
         def __init__(self, name=None):
@@ -123,6 +124,12 @@ class Big_one():
         for key in t.items():
             self.d[key[0]] = key[1]
         return self.d
+    
+    def get_all_moviemons(self):
+        all_movies = dict()
+        for i in settings.MOVIE_LIST:
+            all_movies[i] = self.get_movie(i)
+        return all_movies 
     
 # def test(arg):
 #     a = Big_one()
