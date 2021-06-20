@@ -1,9 +1,12 @@
 import requests, json, sys
+from django.urls import path
 from django.conf import settings
 from django.shortcuts import render
 import pickle
 import random
 from . import views
+
+from django.shortcuts import redirect
 
 class Data():
     def __init__(self, bals_nbr=0, p_names=None, info=None, pos_l=0, pos_c=0, out_right=False, out_left=False, out_up=False, out_down=False, bals_pos=None, movie_pos=None, all_movies=None):
@@ -76,8 +79,10 @@ class Big_one():
         for j in res.movie_pos:
             if j[0] == res.pos_c and j[1] == res.pos_l:
                 tmp = self.get_random_movie()
-                m_id = res.all_movies[tmp]["imdbID"]
-                return views.battle(request, m_id)
+                c_id = res.all_movies[tmp]["imdbID"]
+                return views.battle(request, id, tmp)
+                # return redirect("battle/", name = tmp)
+                # return path("battle/<str:id>", views.battle(request, c_id, tmp))
         self.save(res)
         context = {
             'col': col,
@@ -97,7 +102,6 @@ class Big_one():
         pickle.dump(data, fi)
 
     def load_default_settings(self, request):
-        print("hello")
         col = range(settings.GRID_SIZE[0])
         line = range(settings.GRID_SIZE[1])
         col_file = settings.GRID_SIZE[0]
@@ -139,11 +143,11 @@ class Big_one():
     def get_movemone_strength(self, film):
         tmp = self.get_movie(film)["Ratings"]
         print(tmp)
-        i = tmp[1]["Value"]
+        i = tmp[0]["Value"]
         return i
     
     def get_strength(self, data):
-        return len(data.p_names)
+        return len(data.p_names) + 5
 
     def get_movie(self, arg):
         self.d = dict()
@@ -169,7 +173,6 @@ class Big_one():
             i = [random.randint(0, col_nbr), random.randint(0, line_nbr)]
             if i not in tab:
                 tab.append(i)
-        print("hellooooooo")
         tab.sort()
         return (tab)
 
