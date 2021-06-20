@@ -20,10 +20,11 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from moviemon.views import base
+from moviemon.views import load_default_settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('moviemon/', base),
+    # path('moviemon/', load_default_settings),
+    path('moviemon/', include('moviemon.urls')),
     path('', RedirectView.as_view(url='moviemon/')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

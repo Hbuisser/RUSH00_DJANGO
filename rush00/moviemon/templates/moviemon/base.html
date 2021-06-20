@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block title_content %}
+            <title>BASE HTML</title>
+        {% endblock %}
+        {% block style_contant %}
+        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+        <div class="game-container">
+            <button>
+                <a href="{{ request.path }}?button=right"><i class="fa fa-arrow-circle-right arrow"></i></a>
+            </button>
+            <button>
+                <a href="{{ request.path }}?button=left"><i class="fa fa-arrow-circle-left arrow"></i></a>
+            </button>
+            <button>
+                <a href="{{ request.path }}?button=up"><i class="fa fa-arrow-circle-up arrow"></i></a>
+            </button>
+            <button>
+                <a href="{{ request.path }}?button=down"><i class="fa fa-arrow-circle-down arrow"></i></a>
+            </button>
+        </div>
+        <table class="table">
+            {% for l in line %}
+                <tr>
+                {% for c in col %}
+                    {% if l == pos_l and c == pos_c %}
+                        <td class="current_place">START</td>
+                    {% else %}
+                        <td>EMPTY</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
