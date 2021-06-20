@@ -36,7 +36,7 @@ class Big_one():
     
     def get_random_movie(self):
         res = self.dump()
-        i = random.randint(0, 9)
+        i = random.randint(0, 8)
         if self.my_list[i] in res.p_names:
             return self.get_random_movie()
         return self.my_list[i]
@@ -49,8 +49,6 @@ class Big_one():
         res = self.dump()
         message_bal = ""
         message_mov = ""
-        tmp = self.get_random_movie()
-        m_id = res.all_movies[tmp]["imdbID"]
         button = request.GET.get('button', None)
         if button == "right":
             if res.out_right == False:
@@ -76,11 +74,16 @@ class Big_one():
                 res.out_up = False
             if res.pos_l == line_file - 1:
                 res.out_down = True
-        # elif button == "A":
-        #     if res.movie_flush == True:
-        #         tmp = self.get_random_movie()
-        #         m_id = res.all_movies[tmp]["imdbID"]
-                # return views.battle(request, m_id)
+        elif button == "A":
+            if res.movie_flush == True:
+                tmp = self.get_random_movie()
+                m_id = res.all_movies[tmp]
+                m_id = m_id['imdbID']
+                return views.battle(request, m_id, tmp)
+        elif button == "select":
+            return views.select(request)
+        elif button == "start":
+            return views.start(request)
         for i in res.bals_pos:
             if i[0] == res.pos_c and i[1] == res.pos_l:
                 res.bals_nbr = res.bals_nbr + 1
@@ -88,10 +91,7 @@ class Big_one():
         for j in res.movie_pos:
             if j[0] == res.pos_c and j[1] == res.pos_l:
                 res.movie_flush = True
-                tmp = self.get_random_movie()
-                m_id = res.all_movies[tmp]["imdbID"]
                 message_mov = "You found a movie....."
-                # return views.battle(request, m_id)
         len_mes = len(message_mov)
         self.save(res)
         context = {
@@ -104,14 +104,8 @@ class Big_one():
             'message_mov': message_mov,
             'len_mes': len_mes,
             'movie_flush': res.movie_flush,
-            'id': m_id
         }
         return render(request, 'base.html', context)
-
-    # def create_file(self, bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies):
-    #     data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
-    #     fi = open("pickle", "wb")
-    #     pickle.dump(data, fi)
 
     def save(self, data):
         fi = open("pickle", "wb")
@@ -143,7 +137,6 @@ class Big_one():
             'pos_c': pos_c,
             'bals_nbr': bals_nbr
         }
-        # self.create_file(bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
         data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies, movie_flush)
         fi = open("pickle", "wb")
         pickle.dump(data, fi)
@@ -210,17 +203,5 @@ class Big_one():
                 pos.append(j)
         pos.sort()
         return pos
-    
-# def test(arg):
-#     a = Big_one()
-#     data = Data(0, ["King Kong", "Godzilla", "Alien", "Venom",
-#         "The Meg", "Mummy", "Piranha 3dd", "Dracula",
-#         "The Invisible Man"], a.get_movie(arg[0]))
-#     fi = open("pickle", "wb")
-#     pickle.dump(data, fi)
-    
-#     k = a.get_movie(arg[0])
-#     fi.close()
-#     new_data = a.dump()
-#     print(a.get_random_movie())
+
     

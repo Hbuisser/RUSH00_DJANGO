@@ -44,14 +44,10 @@
         </div>
         <div class="game_container">
             <button class="button">
-                {% if movie_flush  %}
-                <a href="battle/{{ id }}">A</a>
-                {%  else %}
-                <a href="">A</a>
-                {% endif %}
+                <a href="{{ request.path }}?button=A">A</a>
             </button>
             <button class="button">
-                <a href="{{ request.path }}?button=A">B</a>
+                <a href="{{ request.path }}?button=B">B</a>
             </button>
         </div>
         <div class="game_container">

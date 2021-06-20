@@ -27,8 +27,9 @@ def battle(request, id, name):
         a.load()
     dic = a.dump()
     full = dic.all_movies
-    print(full[m]["Poster"])
-    id = full[m]["imdbID"]
+    print(full[name]["Poster"])
+    id = full[name]["imdbID"]
+    l = a.get_movemone_strength(name)
     context = {
             'Poster': full[name]["Poster"],
             'strength' : a.get_movemone_strength(name),
@@ -37,3 +38,9 @@ def battle(request, id, name):
             'chanse' : 50 - (int(l.split(".")[0]) * 10) + (a.get_strength(dic) * 5)
         }
     return render(request, 'battle.html', context)
+
+def select(request):
+    return render(request, 'select.html')
+
+def start(request):
+    return render(request, 'start.html')
