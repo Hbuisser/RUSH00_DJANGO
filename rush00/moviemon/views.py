@@ -22,7 +22,8 @@ def title_page(request):
 def battle(request, id):
     a = imdb_skrap.Big_one()
     m = a.get_random_movie()
-    full = a.get_all_moviemons()
+    dic = a.dump()
+    full = dic.all_movies
     print(full[m]["Poster"])
     id = full[m]["imdbID"]
     print(id)
