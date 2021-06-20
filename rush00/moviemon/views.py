@@ -3,10 +3,10 @@ from django.conf import settings
 import pickle
 from . import imdb_skrap
 
-def create_file(pos_l, pos_c, out_of_range):
-    data = Data(0, ["lol", "kek"], None, pos_l, pos_c, out_of_range)
-    fi = open("pickle", "wb")
-    pickle.dump(data, fi)
+def create_file(self, bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos):
+        data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos)
+        fi = open("pickle", "wb")
+        pickle.dump(data, fi)
 
 def begin(request):
     main = imdb_skrap.Big_one()

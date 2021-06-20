@@ -83,16 +83,17 @@ class Big_one():
         }
         return render(request, 'base.html', context)
 
-    def create_file(self, pos_l, pos_c, out_of_range):
-         data = Data(5, ["lol", "kek"], None, pos_l, pos_c, out_of_range)
-         fi = open("pickle", "wb")
-         pickle.dump(data, fi)
+    def create_file(self, bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos):
+        data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos)
+        fi = open("pickle", "wb")
+        pickle.dump(data, fi)
 
     def save(self, data):
         fi = open("pickle", "wb")
         pickle.dump(data, fi)
 
     def load_default_settings(self, request):
+        print("hello")
         col = range(settings.GRID_SIZE[0])
         line = range(settings.GRID_SIZE[1])
         col_file = settings.GRID_SIZE[0]
@@ -152,10 +153,12 @@ class Big_one():
         col_nbr = settings.GRID_SIZE[0]
         line_nbr = settings.GRID_SIZE[1]
         nbr = (col_nbr * line_nbr) / 3
+        nbr = 15
         while (len(tab) != nbr):
             i = [random.randint(0, col_nbr), random.randint(0, line_nbr)]
             if i not in tab:
                 tab.append(i)
+        print("hellooooooo")
         tab.sort()
         return (tab)
 
@@ -165,6 +168,7 @@ class Big_one():
         col_nbr = settings.GRID_SIZE[0]
         line_nbr = settings.GRID_SIZE[1]
         nbr = (col_nbr * line_nbr) / 3
+        nbr = 15
         while (len(pos) != nbr):
             j = [random.randint(0, col_nbr), random.randint(0, line_nbr)]
             if j not in pos and j not in bals_pos:
