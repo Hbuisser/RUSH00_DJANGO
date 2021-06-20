@@ -1,4 +1,5 @@
 import requests, json, sys
+from django.conf import settings
 
 class Big_one():
     def __init__(self, d=None, my_list=None):
@@ -7,12 +8,10 @@ class Big_one():
         "The Meg", "Mummy", "Piranha 3dd", "Frankenstien", "Dracula",
         "The Invisible Man"]
 
-    # class Data:
-    #     return
     class Movemone():
         def __init__(self, name=None):
             data = self.get_movie(self.my_list[self.index])
-            strength = self.get_strenght()
+            strength = self.get_movemone_strength()
             print(strength)
 
     def get_movemone_strength(self, film):
@@ -30,14 +29,10 @@ class Big_one():
         self.index += 1
         return self.d
     
-
 def test(arg):
     a = Big_one()
     k = a.get_movie(arg[0])
     print(k)
-
-
-
 
 if __name__ == '__main__':
     test(sys.argv[1:])
