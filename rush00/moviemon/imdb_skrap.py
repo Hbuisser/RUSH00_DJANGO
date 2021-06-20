@@ -6,7 +6,7 @@ import random
 from . import views
 
 class Data():
-    def __init__(self, bals_nbr=0, p_names=None, info=None, pos_l=0, pos_c=0, out_right=False, out_left=False, out_up=False, out_down=False, bals_pos=None, movie_pos=None, all_movies=None):
+    def __init__(self, bals_nbr=0, p_names=None, info=None, pos_l=0, pos_c=0, out_right=False, out_left=False, out_up=False, out_down=False, bals_pos=None, movie_pos=None, all_movies=None, movie_flush=False):
         self.size = [10, 10]
         self.bals_nbr = bals_nbr
         self.pos_l = pos_l
@@ -20,6 +20,7 @@ class Data():
         self.bals_pos = bals_pos
         self.movie_pos = movie_pos
         self.all_movies = all_movies
+        self.movie_flush = movie_flush
 
 class Big_one():
     def __init__(self, d=None, my_list=None):
@@ -43,7 +44,8 @@ class Big_one():
         col_file = settings.GRID_SIZE[0]
         line_file = settings.GRID_SIZE[1]
         res = self.dump()
-
+        message_bal = ""
+        message_mov = ""
         button = request.GET.get('button', None)
         if button == "right":
             if res.out_right == False:
@@ -69,28 +71,38 @@ class Big_one():
                 res.out_up = False
             if res.pos_l == line_file - 1:
                 res.out_down = True
-        for i in res.bals_pos:
-            if i[0] == res.pos_c and i[1] == res.pos_l:
-                res.bals_nbr = res.bals_nbr + 1
-                print(res.bals_nbr)
-        for j in res.movie_pos:
-            if j[0] == res.pos_c and j[1] == res.pos_l:
+        elif button == "A":
+            if res.movie_flush == True:
                 tmp = self.get_random_movie()
                 m_id = res.all_movies[tmp]["imdbID"]
                 return views.battle(request, m_id)
+        for i in res.bals_pos:
+            if i[0] == res.pos_c and i[1] == res.pos_l:
+                res.bals_nbr = res.bals_nbr + 1
+                message_bal = "You just found a MovieBall!"
+        for j in res.movie_pos:
+            if j[0] == res.pos_c and j[1] == res.pos_l:
+                res.movie_flush = True
+                tmp = self.get_random_movie()
+                m_id = res.all_movies[tmp]["imdbID"]
+                message_mov = "You found a movie....."
+                # return views.battle(request, m_id)
         self.save(res)
         context = {
             'col': col,
             'line': line,
             'pos_l': res.pos_l,
-            'pos_c': res.pos_c
+            'pos_c': res.pos_c,
+            'bals_nbr': res.bals_nbr,
+            'message_bal': message_bal,
+            'message_mov': message_mov
         }
         return render(request, 'base.html', context)
 
-    def create_file(self, bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies):
-        data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
-        fi = open("pickle", "wb")
-        pickle.dump(data, fi)
+    # def create_file(self, bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies):
+    #     data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
+    #     fi = open("pickle", "wb")
+    #     pickle.dump(data, fi)
 
     def save(self, data):
         fi = open("pickle", "wb")
@@ -115,13 +127,18 @@ class Big_one():
         bals_nbr = 0
         movie_pos = self.create_movie_pos(bals_pos)
         all_movies = self.create_all_movies()
+        movie_flush = False
         context = {
             'col': col,
             'line': line,
             'pos_l': pos_l,
-            'pos_c': pos_c
+            'pos_c': pos_c,
+            'bals_nbr': bals_nbr
         }
-        self.create_file(bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
+        # self.create_file(bals_nbr, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies)
+        data = Data(bals_nbr, ["lol", "kek"], None, pos_l, pos_c, out_right, out_left, out_up, out_down, bals_pos, movie_pos, all_movies, movie_flush)
+        fi = open("pickle", "wb")
+        pickle.dump(data, fi)
         return render(request, 'base.html', context)
 
     def create_all_movies(self):

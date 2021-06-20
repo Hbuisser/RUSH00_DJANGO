@@ -23,11 +23,28 @@ tr {
 }
 
 .arrow {
-  font-size: 200px;
+  font-size: 400px;
   cursor: default;
   color: #36a2eb
 }
 
 .current_place {
-  color: red
+  color: red;
+  border: solid;
+  padding: 20px;
+}
+
+.empty {
+  border: solid;
+  padding: 20px;
+}
+
+.game_container {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.button {
+  size: 40px;
+  padding: 20px;
 }

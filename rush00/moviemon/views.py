@@ -26,7 +26,6 @@ def battle(request, id):
     full = dic.all_movies
     print(full[m]["Poster"])
     id = full[m]["imdbID"]
-    print(id)
     context = {
             'Poster': full[m]["Poster"],
         }

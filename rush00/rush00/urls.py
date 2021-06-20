@@ -24,7 +24,7 @@ from moviemon.views import begin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('moviemon/', begin),
+    path('worldmap/', begin),
     # path('moviemon/', include('moviemon.urls')),
     path('', include("moviemon.urls")),
     path('battle/', include("moviemon.urls")),
