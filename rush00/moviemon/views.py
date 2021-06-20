@@ -19,14 +19,21 @@ def begin(request):
 def title_page(request):
     return render(request, 'title.html')
 
-def battle(request, id):
+def battle(request, id, name):
     a = imdb_skrap.Big_one()
-    m = a.get_random_movie()
+    # tmp = a.get_random_movie()
+    # id = res.all_movies[tmp]["imdbID"]
+    if id == None:
+        a.load()
     dic = a.dump()
     full = dic.all_movies
     print(full[m]["Poster"])
     id = full[m]["imdbID"]
     context = {
-            'Poster': full[m]["Poster"],
+            'Poster': full[name]["Poster"],
+            'strength' : a.get_movemone_strength(name),
+            'moveballs' : dic.bals_nbr,
+            'power' : a.get_strength(dic),
+            'chanse' : 50 - (int(l.split(".")[0]) * 10) + (a.get_strength(dic) * 5)
         }
     return render(request, 'battle.html', context)
