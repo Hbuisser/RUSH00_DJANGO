@@ -12,19 +12,20 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}" />
     </head>
     <body>
-        <h1>Hello</h1>
-        <div class="container">
-            <div class="cell cell-1">1.</div>
-            <div class="cell cell-2">2.</div>
-            <div class="cell cell-3">3.</div>
-            <div class="cell cell-4">4.</div>
-            <div class="cell cell-5">5.</div>
-            <div class="cell cell-6">6.</div>
-            <div class="cell cell-7">7.</div>
-            <div class="cell cell-8">8.</div>
-            <div class="cell cell-9">9.</div> 
-        </div>
         {% block content %}
         {% endblock %}
+        <table class="table">
+            {% for l in line %}
+                <tr>
+                {% for c in col %}
+                    {% if l == start_l and c == start_c %}
+                        <td>START</td>
+                    {% else %}
+                        <td>EMPTY</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
