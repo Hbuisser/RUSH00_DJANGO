@@ -1,40 +1,24 @@
-.container {
-  height: 90vh;
-  margin: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-}
-.cell {
+/* table,
+td {
   color: white;
-  font-size: 3rem;
+  font-size: 1rem;
   text-align: center;
-  padding: 4rem;
+  padding: 10rem;
+  background: grey;
+  border: 1px solid #333;
+} */
+
+.table {
+  border-spacing: o;
+  margin: 1rem;
+  background-color: #f5f5f5;
 }
-.cell-1 {
-  background: deepskyblue;
+
+tr {
+  background-color: #e5e5e5;
 }
-.cell-2 {
-  background: orangered;
-}
-.cell-3 {
-  background: royalblue;
-}
-.cell-4 {
-  background: gold;
-}
-.cell-5 {
-  background: blueviolet;
-}
-.cell-6 {
-  background: limegreen;
-}
-.cell-7 {
-  background: coral;
-}
-.cell-8 {
-  background: lightseagreen;
-}
-.cell-9 {
-  background: maroon;
+
+.table__cell {
+  padding: 8px;
+
 }
