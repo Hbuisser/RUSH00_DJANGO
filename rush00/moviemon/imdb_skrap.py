@@ -87,6 +87,7 @@ class Big_one():
                 m_id = res.all_movies[tmp]["imdbID"]
                 message_mov = "You found a movie....."
                 # return views.battle(request, m_id)
+        len_mes = len(message_mov)
         self.save(res)
         context = {
             'col': col,
@@ -95,7 +96,8 @@ class Big_one():
             'pos_c': res.pos_c,
             'bals_nbr': res.bals_nbr,
             'message_bal': message_bal,
-            'message_mov': message_mov
+            'message_mov': message_mov,
+            'len_mes': len_mes
         }
         return render(request, 'base.html', context)
 

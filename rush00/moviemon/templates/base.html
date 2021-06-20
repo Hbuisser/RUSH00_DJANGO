@@ -58,8 +58,19 @@
                 <p>{{ message_bal }}</p>
             </div>
             <div>
-                <p>{{ message_mov }}</p>
+                <p>{{ message_mov }} </p>
+                {% if len_mess > 3 %}
+                    <p>=> click on the A button if you want to catch it!</p>
+                {% endif %}
             </div>
+        </div>
+        <div class="game_container">
+            <button class="button">
+                <a href="{{ request.path }}?button=start">Start</a>
+            </button>
+            <button class="button">
+                <a href="{{ request.path }}?button=select">Select</a>
+            </button>
         </div>
     </body>
 </html>
