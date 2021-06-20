@@ -78,7 +78,10 @@ class Big_one():
             if res.movie_flush == True:
                 tmp = self.get_random_movie()
                 m_id = res.all_movies[tmp]
-                m_id = m_id['imdbID']
+                try:
+                    m_id = m_id['imdbID']
+                except:
+                    m_id = 'tt1270797'
                 return views.battle(request, m_id, tmp)
         elif button == "select":
             return views.select(request)
@@ -155,9 +158,11 @@ class Big_one():
             print(strength)
 
     def get_movemone_strength(self, film):
-        tmp = self.get_movie(film)["Ratings"]
-        print(tmp)
-        i = tmp[0]["Value"]
+        try:
+            tmp = self.get_movie(film)["Ratings"]
+            i = tmp[0]["Value"]
+        except:
+            i = 7
         return i
     
     def get_strength(self, data):
