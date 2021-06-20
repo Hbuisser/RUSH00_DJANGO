@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 import pickle
+from . import imdb_skrap
 
 def create_file(pos_l, pos_c, out_of_range):
     data = Data(0, ["lol", "kek"], None, pos_l, pos_c, out_of_range)
@@ -10,7 +11,6 @@ def create_file(pos_l, pos_c, out_of_range):
 class Data():
     def __init__(self, movebals=None, p_names=None, info=None, pos_l=0, pos_c=0, out_of_range=False):
         self.size = [10, 10]
-        self.start = [2, 3]
         self.pos_l = pos_l
         self.pos_c = pos_c
         self.out_of_range = out_of_range
@@ -82,8 +82,10 @@ def load_default_settings(request):
     return render(request, 'moviemon/base.html', context)
 
 def begin(request):
+    main = imdb_skrap.Big_one()
+    
     button = request.GET.get('button', None)
     if button == None:
-        return load_default_settings(request)
+        return main.load_default_settings(request)
     else:
-        return load(request)
+        return main.load(request)
