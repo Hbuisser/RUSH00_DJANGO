@@ -27,8 +27,8 @@ def battle(request, id, name):
         a.load()
     dic = a.dump()
     full = dic.all_movies
-    cur_n = full[name]
-    l = a.get_movemone_strength(name).split("/")[0]
+    print(full[m]["Poster"])
+    id = full[m]["imdbID"]
     context = {
             'Poster': full[name]["Poster"],
             'strength' : a.get_movemone_strength(name),
