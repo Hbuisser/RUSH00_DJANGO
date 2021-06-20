@@ -28,6 +28,11 @@ class Big_one():
             self.d[key[0]] = key[1]
         self.index += 1
         return self.d
+
+    def dump(self):
+    f = open("pickle", "rb")
+    res = pickle.load(f)
+    return res
     
 def test(arg):
     a = Big_one()

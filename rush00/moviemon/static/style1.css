@@ -20,5 +20,14 @@ tr {
 
 .table__cell {
   padding: 8px;
+}
 
+.arrow {
+  font-size: 200px;
+  cursor: default;
+  color: #36a2eb
+}
+
+.current_place {
+  color: red
 }
