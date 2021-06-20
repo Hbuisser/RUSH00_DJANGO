@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GRID_SIZE = [10, 10]
+GRID_SIZE = [11, 12]
 START_POINT = [2, 3]
 MOVIE_LIST = ["King Kong", "Godzilla", "Alien", "Venom",
         "The Meg", "Mummy", "Piranha 3dd", "Frankenstien", "Dracula",

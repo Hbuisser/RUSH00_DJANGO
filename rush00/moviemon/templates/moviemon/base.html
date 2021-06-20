@@ -17,6 +17,19 @@
     <body>
         {% block content %}
         {% endblock %}
+        <table class="table">
+            {% for l in line %}
+                <tr>
+                {% for c in col %}
+                    {% if l == pos_l and c == pos_c %}
+                        <td class="current_place">O</td>
+                    {% else %}
+                        <td class="empty">E</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
         <div class="game-container">
             <button>
                 <a href="{{ request.path }}?button=right"><i class="fa fa-arrow-circle-right arrow"></i></a>
@@ -31,18 +44,5 @@
                 <a href="{{ request.path }}?button=down"><i class="fa fa-arrow-circle-down arrow"></i></a>
             </button>
         </div>
-        <table class="table">
-            {% for l in line %}
-                <tr>
-                {% for c in col %}
-                    {% if l == pos_l and c == pos_c %}
-                        <td class="current_place">START</td>
-                    {% else %}
-                        <td>EMPTY</td>
-                    {% endif %}
-                {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
     </body>
 </html>
